@@ -13,11 +13,5 @@ for rc in "$HOME/.bashrc" "$HOME/.zshrc"; do
 done
 
 echo ""
-echo "=========================================="
-echo " Compiler Design Lab (CSL411) Setup Done! "
-echo " Location: $TARGET"
-echo " Files: $(ls "$TARGET" | tr '\n' ' ')"
-echo " To use now: cd ~/.config/cd_lab"
-echo " Or simply:  cdlab (in any new terminal)"
-echo "=========================================="
+echo "Location: $TARGET"
 echo ""
