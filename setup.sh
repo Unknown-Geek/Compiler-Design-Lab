@@ -2,8 +2,8 @@
 TARGET="$HOME/.config/cd_lab"
 mkdir -p "$TARGET"
 
-# Download and extract without consuming stdin from the pipe
-curl -sL "https://github.com/Unknown-Geek/Compiler-Design-Lab/archive/refs/heads/main.tar.gz" </dev/null | tar -xz --strip-components=1 -C "$TARGET" </dev/null
+# Download and extract archive into TARGET
+curl -sL "https://github.com/Unknown-Geek/Compiler-Design-Lab/archive/refs/heads/main.tar.gz" | tar -xz --strip-components=1 -C "$TARGET"
 
 # Add shortcut alias to bashrc and zshrc
 for rc in "$HOME/.bashrc" "$HOME/.zshrc"; do
@@ -16,6 +16,7 @@ echo ""
 echo "=========================================="
 echo " Compiler Design Lab (CSL411) Setup Done! "
 echo " Location: $TARGET"
+echo " Files: $(ls "$TARGET" | tr '\n' ' ')"
 echo " To use now: cd ~/.config/cd_lab"
 echo " Or simply:  cdlab (in any new terminal)"
 echo "=========================================="
