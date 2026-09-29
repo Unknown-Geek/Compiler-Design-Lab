@@ -1,0 +1,12 @@
+# Build artifacts
+*.out
+a.out
+*.o
+
+# Lex and Yacc generated files
+lex.yy.c
+y.tab.c
+y.tab.h
+
+# macOS metadata
+.DS_Store
