@@ -1,7 +1,9 @@
 #!/bin/bash
 TARGET="$HOME/.config/cd_lab"
 mkdir -p "$TARGET"
-curl -sL https://github.com/Unknown-Geek/Compiler-Design-Lab/archive/refs/heads/main.tar.gz | tar -xz --strip-components=1 -C "$TARGET"
+
+# Download and extract without consuming stdin from the pipe
+curl -sL "https://github.com/Unknown-Geek/Compiler-Design-Lab/archive/refs/heads/main.tar.gz" </dev/null | tar -xz --strip-components=1 -C "$TARGET" </dev/null
 
 # Add shortcut alias to bashrc and zshrc
 for rc in "$HOME/.bashrc" "$HOME/.zshrc"; do
