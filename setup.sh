@@ -5,13 +5,6 @@ mkdir -p "$TARGET"
 # Download and extract archive into TARGET
 curl -sL "https://github.com/Unknown-Geek/Compiler-Design-Lab/archive/refs/heads/main.tar.gz" | tar -xz --strip-components=1 -C "$TARGET"
 
-# Add shortcut alias to bashrc and zshrc
-for rc in "$HOME/.bashrc" "$HOME/.zshrc"; do
-    if [ -f "$rc" ] && ! grep -q "alias cdlab=" "$rc" 2>/dev/null; then
-        echo "alias cdlab='cd $TARGET'" >> "$rc"
-    fi
-done
-
 echo ""
 echo "Location: $TARGET"
 echo ""
