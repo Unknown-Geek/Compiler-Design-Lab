@@ -13,14 +13,18 @@ int chars = 0;
 %%
 
 \n              { lines++; chars++; }
-#               { return 0; }
 [ \t]+          { chars += yyleng; }
-[^ \t\n#]+      { words++; chars += yyleng; }
+[^ \t\n]+      { words++; chars += yyleng; }
 
 %%
 
 int main() {
-    printf("Enter input (type '#' to end):\n");
+    yyin = fopen("input2.c","r");
+    if(!yyin) {
+        printf("Error opening the file.\n");
+        return 0;
+    }
+
     yylex();
 
     printf("\n--- Result ---\n");

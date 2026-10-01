@@ -47,7 +47,12 @@ int|float|char|double|if|else|while|for|return|void {
 %%
 
 int main() {
-    printf("Enter input (Ctrl+D to end):\n");
+    yyin = fopen("input1.c","r");
+    if(!yyin) {
+        printf("Error opening the file.\n");
+        return 0;
+    }
+    
     yylex();
 
     printf("\n--- Token Counts ---\n");

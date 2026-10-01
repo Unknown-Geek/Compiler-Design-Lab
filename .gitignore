@@ -10,3 +10,5 @@ y.tab.h
 
 # macOS metadata
 .DS_Store
+temp/
+Screenshots/

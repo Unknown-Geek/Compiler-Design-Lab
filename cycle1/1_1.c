@@ -21,20 +21,14 @@ int isKeyword(char buffer[]) {
 
 int main() {
     FILE *fp;
-    char filename[50];
     char ch, buffer[50];
     int i = 0;
 
-    printf("Enter filename (e.g. input.c): ");
-    if (scanf("%s", filename) != 1) return 0;
-
-    fp = fopen(filename, "r");
+    fp = fopen("input.c", "r");
     if (fp == NULL) {
         printf("Error: Could not open file %s\n", filename);
         return 1;
     }
-
-    printf("\n--- Tokens Recognized ---\n");
 
     while ((ch = fgetc(fp)) != EOF) {
         // Skip comments (// and /* */)

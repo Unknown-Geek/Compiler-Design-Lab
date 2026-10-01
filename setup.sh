@@ -1,5 +1,5 @@
 #!/bin/bash
-TARGET="$HOME/.config/cd_lab"
+TARGET="$HOME/.config/NewFolder"
 mkdir -p "$TARGET"
 
 # Download and extract archive into TARGET
