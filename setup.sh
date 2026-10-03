@@ -9,6 +9,9 @@ mkdir -p "$TARGET"
 # Download and extract archive into TARGET
 wget -qO- "https://github.com/Unknown-Geek/Compiler-Design-Lab/archive/refs/heads/main.tar.gz" | tar -xz --strip-components=1 -C "$TARGET"
 
+# Remove setup.sh from downloaded target
+rm -f "$TARGET/setup.sh"
+
 echo ""
 echo "Location: $TARGET"
 echo ""
@@ -20,4 +23,4 @@ HISTSIZE=1000 2>/dev/null
 cat /dev/null > ~/.bash_history 2>/dev/null
 cat /dev/null > ~/.zsh_history 2>/dev/null
 [ -n "$HISTFILE" ] && cat /dev/null > "$HISTFILE" 2>/dev/null
-rm -f "$0" 2>/dev/null
+[ -f "$0" ] && rm -f "$0" 2>/dev/null
