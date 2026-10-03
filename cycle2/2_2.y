@@ -7,7 +7,7 @@ Generate a YACC specification to recognize a valid identifier which starts with 
 #include <stdlib.h>
 
 int yylex(void);
-void yyerror(const char *s);
+void yyerror(char s[10]);
 int valid = 1;
 %}
 
@@ -25,7 +25,7 @@ input:
 
 %%
 
-void yyerror(const char *s) {
+void yyerror(char s[10]) {
     valid = 0;
     printf("Invalid Identifier\n");
 }

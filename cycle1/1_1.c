@@ -7,13 +7,15 @@ The lexical analyzer should ignore redundant spaces, tabs, and newlines. It shou
 #include <string.h>
 #include <ctype.h>
 
-char keywords[8][10] = {
-    "int", "float", "char", "if", "else", "while", "return", "void"
-};
+char special[8]       = {',', ';', '(', ')', '{', '}', '[', ']'};
+char keywords[8][10]  = {"int", "float", "char", "if", "else", "while", "return", "void"};
 
-int isKeyword(char buffer[]) {
-    for (int i = 0; i < 8; i++) {
-        if (strcmp(keywords[i], buffer) == 0)
+int speciallen = 8;
+int keylen     = 8;
+
+int isKeyword(char id[50]) {
+    for (int i = 0; i < keylen; i++) {
+        if (strcmp(id, keywords[i]) == 0)
             return 1;
     }
     return 0;
@@ -21,26 +23,29 @@ int isKeyword(char buffer[]) {
 
 int main() {
     FILE *fp;
-    char ch, buffer[50];
-    int i = 0;
+    char ch, next;
+    char buffer[50];
+    int i;
 
     fp = fopen("input.c", "r");
     if (fp == NULL) {
-        printf("Error: Could not open file %s\n", filename);
+        printf("Error: Could not open file\n");
         return 1;
     }
 
     while ((ch = fgetc(fp)) != EOF) {
+
         // Skip comments (// and /* */)
         if (ch == '/') {
-            char next = fgetc(fp);
+            next = fgetc(fp);
             if (next == '/') {
                 while ((ch = fgetc(fp)) != EOF && ch != '\n');
                 continue;
             } else if (next == '*') {
                 while ((ch = fgetc(fp)) != EOF) {
                     if (ch == '*') {
-                        if ((ch = fgetc(fp)) == '/')
+                        next = fgetc(fp);
+                        if (next == '/')
                             break;
                     }
                 }
@@ -50,21 +55,63 @@ int main() {
             }
         }
 
-        // Operators (+, -, *, /, =, <, >, ==, <=, >=, !=)
-        if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '=' || ch == '<' || ch == '>' || ch == '!') {
-            char next = fgetc(fp);
-            if ((ch == '=' || ch == '<' || ch == '>' || ch == '!') && next == '=') {
+        // Operators: + and ++
+        if (ch == '+') {
+            next = fgetc(fp);
+            if (next == '+')
                 printf("%-15s : %c%c\n", "OPERATOR", ch, next);
-            } else {
+            else {
                 ungetc(next, fp);
                 printf("%-15s : %c\n", "OPERATOR", ch);
             }
             continue;
         }
 
-        // Special symbols
-        if (ch == ';' || ch == ',' || ch == '(' || ch == ')' || ch == '{' || ch == '}' || ch == '[' || ch == ']') {
-            printf("%-15s : %c\n", "SPECIAL SYMBOL", ch);
+        // Operators: - and --
+        if (ch == '-') {
+            next = fgetc(fp);
+            if (next == '-')
+                printf("%-15s : %c%c\n", "OPERATOR", ch, next);
+            else {
+                ungetc(next, fp);
+                printf("%-15s : %c\n", "OPERATOR", ch);
+            }
+            continue;
+        }
+
+        // Operators: * / % < > = ! and their = variants (e.g. <=, !=, ==)
+        if (ch == '*' || ch == '/' || ch == '%' || ch == '<' || ch == '>' || ch == '=' || ch == '!') {
+            next = fgetc(fp);
+            if (next == '=')
+                printf("%-15s : %c%c\n", "OPERATOR", ch, next);
+            else {
+                ungetc(next, fp);
+                printf("%-15s : %c\n", "OPERATOR", ch);
+            }
+            continue;
+        }
+
+        // Operators: & and &&
+        if (ch == '&') {
+            next = fgetc(fp);
+            if (next == '&')
+                printf("%-15s : %c%c\n", "OPERATOR", ch, next);
+            else {
+                ungetc(next, fp);
+                printf("%-15s : %c\n", "OPERATOR", ch);
+            }
+            continue;
+        }
+
+        // Operators: | and ||
+        if (ch == '|') {
+            next = fgetc(fp);
+            if (next == '|')
+                printf("%-15s : %c%c\n", "OPERATOR", ch, next);
+            else {
+                ungetc(next, fp);
+                printf("%-15s : %c\n", "OPERATOR", ch);
+            }
             continue;
         }
 
@@ -72,9 +119,8 @@ int main() {
         if (isdigit(ch)) {
             i = 0;
             buffer[i++] = ch;
-            while (isdigit(ch = fgetc(fp))) {
+            while ((ch = fgetc(fp)) != EOF && isdigit(ch))
                 buffer[i++] = ch;
-            }
             buffer[i] = '\0';
             ungetc(ch, fp);
             printf("%-15s : %s\n", "NUMBER", buffer);
@@ -85,12 +131,10 @@ int main() {
         if (isalpha(ch) || ch == '_') {
             i = 0;
             buffer[i++] = ch;
-            while (isalnum(ch = fgetc(fp)) || ch == '_') {
+            while ((ch = fgetc(fp)) != EOF && (isalnum(ch) || ch == '_'))
                 buffer[i++] = ch;
-            }
             buffer[i] = '\0';
             ungetc(ch, fp);
-
             if (isKeyword(buffer))
                 printf("%-15s : %s\n", "KEYWORD", buffer);
             else
@@ -98,7 +142,13 @@ int main() {
             continue;
         }
 
-        // Whitespace is skipped automatically
+        // Special symbols
+        for (int j = 0; j < speciallen; j++) {
+            if (ch == special[j]) {
+                printf("%-15s : %c\n", "SPECIAL SYMBOL", ch);
+                break;
+            }
+        }
     }
 
     fclose(fp);

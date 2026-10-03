@@ -45,7 +45,7 @@ void printPreorder(int root) {
 }
 
 int yylex(void);
-void yyerror(const char *s);
+void yyerror(char s[10]);
 %}
 
 %token ID NUM
@@ -78,7 +78,7 @@ expr:
 
 %%
 
-void yyerror(const char *s) {
+void yyerror(char s[10]) {
     printf("Invalid Expression for AST\n");
 }
 

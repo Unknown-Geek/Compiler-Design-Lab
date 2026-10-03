@@ -7,7 +7,7 @@ Generate a YACC specification to recognize a valid arithmetic expression that us
 #include <stdlib.h>
 
 int yylex(void);
-void yyerror(const char *s);
+void yyerror(char s[10]);
 int valid = 1;
 %}
 
@@ -39,7 +39,7 @@ expr:
 
 %%
 
-void yyerror(const char *s) {
+void yyerror(char s[10]) {
     valid = 0;
     printf("Invalid Expression\n");
 }

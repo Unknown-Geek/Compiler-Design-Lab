@@ -7,7 +7,7 @@ Implementation of Calculator using LEX and YACC (Parser).
 #include <stdlib.h>
 
 int yylex(void);
-void yyerror(const char *s);
+void yyerror(char s[10]);
 %}
 
 %token NUMBER
@@ -47,7 +47,7 @@ expr:
 
 %%
 
-void yyerror(const char *s) {
+void yyerror(char s[10]) {
     printf("Invalid Expression\n");
 }
 
