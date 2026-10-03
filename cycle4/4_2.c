@@ -87,21 +87,15 @@ int F() {
 }
 
 int main() {
-    printf("Enter input string: ");
+    printf("Enter the input string: ");
     if (scanf("%s", input) != 1)
         return 0;
+    printf("\n");
 
-    ip = 0;
-    printf("\n%-20s %s\n", "Remaining Input", "Action");
-    printf("----------------------------------------\n");
-
-    if (E() && input[ip] == '\0') {
-        printf("----------------------------------------\n");
-        printf("String is Accepted (Valid)\n");
-    } else {
-        printf("----------------------------------------\n");
-        printf("String is Rejected (Invalid)\n");
-    }
+    if (E() && input[ip] == '\0')
+        printf("\nString Accepted\n");
+    else
+        printf("\nString Rejected\n");
 
     return 0;
 }
