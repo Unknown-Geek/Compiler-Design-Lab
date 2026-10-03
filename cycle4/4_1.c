@@ -40,17 +40,9 @@ void first(char c) {
     }
 }
 
-int canDeriveE(char c) {
-    for (int k = 0; k < n; k++) {
-        if (prod[k][0] == c && prod[k][3] == 'e')
-            return 1;
-    }
-    return 0;
-}
-
 void follow(char c) {
     if (prod[0][0] == c) {
-        addToResult('$'); // End-of-input marker
+        addToResult('$');
     }
 
     for (int i = 0; i < n; i++) {
@@ -60,7 +52,7 @@ void follow(char c) {
                 if (prod[i][j + 1] != '\0') {
                     first(prod[i][j + 1]);
                 }
-                if ((prod[i][j + 1] == '\0' || canDeriveE(prod[i][j + 1])) && prod[i][0] != c) {
+                if (prod[i][j + 1] == '\0' && prod[i][0] != c) {
                     follow(prod[i][0]);
                 }
             }
