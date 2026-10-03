@@ -44,10 +44,14 @@ int getOperandValue(char token[]) {
 }
 
 int evaluate(int a, int b, char op) {
-    if (op == '+') return a + b;
-    if (op == '-') return a - b;
-    if (op == '*') return a * b;
-    if (op == '/' && b != 0) return a / b;
+    if (op == '+')
+        return a + b;
+    if (op == '-')
+        return a - b;
+    if (op == '*')
+        return a * b;
+    if (op == '/' && b != 0)
+        return a / b;
     return NOT_CONST;
 }
 
@@ -56,7 +60,8 @@ int main() {
     char stmt[50];
 
     printf("Enter number of statements: ");
-    if (scanf("%d", &n) != 1) return 0;
+    if (scanf("%d", &n) != 1)
+        return 0;
 
     printf("Enter statements (e.g. a=5, b=a+3, c=b*2):\n");
     for (int i = 0; i < n; i++) {

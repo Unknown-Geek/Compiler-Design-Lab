@@ -14,7 +14,8 @@ int finalState[MAX], reach[MAX];
 int mark[MAX][MAX], group[MAX];
 
 void findReachable(int s) {
-    if (reach[s]) return;
+    if (reach[s])
+        return;
     reach[s] = 1;
     for (int i = 0; i < m; i++) {
         findReachable(trans[s][i]);
@@ -60,7 +61,8 @@ void makeGroups() {
     for (int i = 0; i < n; i++) group[i] = -1;
 
     for (int i = 0; i < n; i++) {
-        if (!reach[i] || group[i] != -1) continue;
+        if (!reach[i] || group[i] != -1)
+            continue;
         group[i] = g;
         for (int j = i + 1; j < n; j++) {
             if (reach[j] && !mark[i][j]) {
@@ -75,7 +77,8 @@ int main() {
     int f, x;
 
     printf("Enter number of states: ");
-    if (scanf("%d", &n) != 1) return 0;
+    if (scanf("%d", &n) != 1)
+        return 0;
 
     printf("Enter number of input symbols: ");
     scanf("%d", &m);
@@ -130,7 +133,10 @@ int main() {
         // Find representative state for group i
         int rep = -1;
         for (int j = 0; j < n; j++) {
-            if (group[j] == i) { rep = j; break; }
+            if (group[j] == i) {
+                rep = j;
+                break;
+            }
         }
 
         printf("Q%d\t", i);

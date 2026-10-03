@@ -30,7 +30,8 @@ int main() {
     int ip = 0;
 
     printf("Enter input string: ");
-    if (scanf("%s", input) != 1) return 0;
+    if (scanf("%s", input) != 1)
+        return 0;
 
     printf("\n%-20s %-20s %s\n", "Stack", "Input", "Action");
     printf("------------------------------------------------------------\n");

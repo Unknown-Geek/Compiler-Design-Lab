@@ -50,7 +50,8 @@ int main() {
     char inp[100];
 
     printf("Enter expression (e.g. a=b+c*d): ");
-    if (scanf("%s", inp) != 1) return 0;
+    if (scanf("%s", inp) != 1)
+        return 0;
 
     printf("\n--- Intermediate Code (Quadruples & TAC) ---\n");
     gen_code(inp);

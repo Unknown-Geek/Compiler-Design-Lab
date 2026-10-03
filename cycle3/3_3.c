@@ -61,7 +61,8 @@ void printNFATransitions() {
                 if (closure[i][c]) {
                     for (int k = 0; trans[c][j][k] != '\0'; k++) {
                         char sym = trans[c][j][k];
-                        if (sym == 'e' || sym == '-') continue;
+                        if (sym == 'e' || sym == '-')
+                            continue;
                         if (strchr(result, sym) == NULL) {
                             result[len++] = sym;
                             result[len] = '\0';
@@ -78,7 +79,8 @@ void printNFATransitions() {
 
 int main() {
     printf("Enter number of states: ");
-    if (scanf("%d", &n) != 1) return 0;
+    if (scanf("%d", &n) != 1)
+        return 0;
 
     printf("\nEnter transitions ('e' for epsilon, '-' for none):\n");
     for (int i = 0; i < n; i++) {

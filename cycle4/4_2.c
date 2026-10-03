@@ -88,7 +88,8 @@ int F() {
 
 int main() {
     printf("Enter input string: ");
-    if (scanf("%s", input) != 1) return 0;
+    if (scanf("%s", input) != 1)
+        return 0;
 
     ip = 0;
     printf("\n%-20s %s\n", "Remaining Input", "Action");

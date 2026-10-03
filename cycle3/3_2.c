@@ -52,7 +52,8 @@ void printClosure() {
 
 int main() {
     printf("Enter number of states: ");
-    if (scanf("%d", &n) != 1) return 0;
+    if (scanf("%d", &n) != 1)
+        return 0;
 
     printf("\nEnter transitions ('e' for epsilon, '-' for none):\n");
     for (int i = 0; i < n; i++) {

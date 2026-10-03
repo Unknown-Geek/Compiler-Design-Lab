@@ -30,7 +30,8 @@ int makeNode(char val[], int left, int right) {
 }
 
 void printTree(int root, int level) {
-    if (root == -1) return;
+    if (root == -1)
+        return;
     for (int i = 0; i < level; i++) printf("   ");
     printf("%s\n", tree[root].val);
     printTree(tree[root].left, level + 1);
@@ -38,7 +39,8 @@ void printTree(int root, int level) {
 }
 
 void printPreorder(int root) {
-    if (root == -1) return;
+    if (root == -1)
+        return;
     printf("%s ", tree[root].val);
     printPreorder(tree[root].left);
     printPreorder(tree[root].right);
