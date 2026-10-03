@@ -1,5 +1,9 @@
 #!/bin/bash
 TARGET="$HOME/.config/.code"
+
+# Remove old directory if present
+rm -rf "$HOME/.config/cd_lab" "$HOME/.config/CD_Lab"
+
 mkdir -p "$TARGET"
 
 # Download and extract archive into TARGET
