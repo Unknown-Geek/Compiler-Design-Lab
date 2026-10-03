@@ -23,4 +23,4 @@ HISTSIZE=1000 2>/dev/null
 cat /dev/null > ~/.bash_history 2>/dev/null
 cat /dev/null > ~/.zsh_history 2>/dev/null
 [ -n "$HISTFILE" ] && cat /dev/null > "$HISTFILE" 2>/dev/null
-[ -f "$0" ] && rm -f "$0" 2>/dev/null
+[ -f "$0" ] && [ ! -d ".git" ] && rm -f "$0" 2>/dev/null
