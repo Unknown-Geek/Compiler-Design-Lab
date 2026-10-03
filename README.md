@@ -2,8 +2,7 @@
 
 A curated, simplified collection of Compiler Design Lab programs implemented in C, LEX, and YACC. All programs are designed to be concise, easy to understand, and exam-friendly by using simple flat arrays instead of complex pointers or dynamic allocations.
 
-## Detailed Questions & Program Links
-
+---
 ### Cycle 1: Lexical Analysis & Basic LEX Programming
 
 | # | Question Description | Program File |
