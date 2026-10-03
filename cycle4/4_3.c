@@ -9,20 +9,19 @@ char stack[100];
 int top = -1;
 
 void push(char c) {
-    stack[++top] = c;
-    stack[top + 1] = '\0';
+    top++;
+    stack[top] = c;
 }
 
 void pop() {
-    if (top >= 0) {
-        stack[top--] = '\0';
-    }
+    top--;
 }
 
 void displayStack() {
     for (int i = 0; i <= top; i++) {
         printf("%c", stack[i]);
     }
+    printf("\t\t");
 }
 
 int main() {
@@ -30,11 +29,9 @@ int main() {
     int ip = 0;
 
     printf("Enter input string: ");
-    if (scanf("%s", input) != 1)
-        return 0;
+    scanf("%s", input);
 
-    printf("\n%-20s %-20s %s\n", "Stack", "Input", "Action");
-    printf("------------------------------------------------------------\n");
+    printf("\n%s\t\t%s\t\t\t%s\n", "Stack", "Input", "Action");
 
     while (1) {
         // 1. Shift
@@ -42,12 +39,12 @@ int main() {
             push(input[ip]);
             ip++;
             displayStack();
-            printf("\t\t%-20s SHIFT\n", input + ip);
+            printf("%-20s SHIFT\n", input + ip);
         }
 
         // 2. Reduce handles
-        int reduced = 0;
-        do {
+        int reduced = 1;
+        while (reduced) {
             reduced = 0;
 
             // Reduce: E -> i
@@ -55,7 +52,7 @@ int main() {
                 pop();
                 push('E');
                 displayStack();
-                printf("\t\t%-20s REDUCE: E -> i\n", input + ip);
+                printf("%-20s REDUCE: E -> i\n", input + ip);
                 reduced = 1;
             }
 
@@ -64,7 +61,7 @@ int main() {
                 pop(); pop(); pop();
                 push('E');
                 displayStack();
-                printf("\t\t%-20s REDUCE: E -> (E)\n", input + ip);
+                printf("%-20s REDUCE: E -> (E)\n", input + ip);
                 reduced = 1;
             }
 
@@ -73,33 +70,26 @@ int main() {
                 pop(); pop(); pop();
                 push('E');
                 displayStack();
-                printf("\t\t%-20s REDUCE: E -> E*E\n", input + ip);
+                printf("%-20s REDUCE: E -> E*E\n", input + ip);
                 reduced = 1;
             }
 
-            // Reduce: E -> E + E (only if lookahead is not '*')
+            // Reduce: E -> E + E
             if (top >= 2 && stack[top - 2] == 'E' && stack[top - 1] == '+' && stack[top] == 'E') {
-                if (input[ip] != '*') {
-                    pop(); pop(); pop();
-                    push('E');
-                    displayStack();
-                    printf("\t\t%-20s REDUCE: E -> E+E\n", input + ip);
-                    reduced = 1;
-                }
+                pop(); pop(); pop();
+                push('E');
+                displayStack();
+                printf("%-20s REDUCE: E -> E+E\n", input + ip);
+                reduced = 1;
             }
-        } while (reduced);
-
-        // 3. Accept
-        if (input[ip] == '\0' && top == 0 && stack[top] == 'E') {
-            printf("------------------------------------------------------------\n");
-            printf("String is Accepted (Valid)\n");
-            break;
         }
 
-        // 4. Reject
-        if (input[ip] == '\0' && (top != 0 || stack[top] != 'E')) {
-            printf("------------------------------------------------------------\n");
-            printf("String is Rejected (Invalid)\n");
+        // 3. Accept or Reject
+        if (input[ip] == '\0') {
+            if (top == 0 && stack[top] == 'E')
+                printf("\nString Accepted\n");
+            else
+                printf("\nString Rejected\n");
             break;
         }
     }
