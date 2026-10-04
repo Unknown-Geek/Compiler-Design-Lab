@@ -77,8 +77,7 @@ int main() {
     int f, x;
 
     printf("Enter number of states: ");
-    if (scanf("%d", &n) != 1)
-        return 0;
+    scanf("%d", &n);
 
     printf("Enter number of input symbols: ");
     scanf("%d", &m);

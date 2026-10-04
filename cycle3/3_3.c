@@ -79,8 +79,7 @@ void printNFATransitions() {
 
 int main() {
     printf("Enter number of states: ");
-    if (scanf("%d", &n) != 1)
-        return 0;
+    scanf("%d", &n);
 
     printf("\nEnter transitions ('e' for epsilon, '-' for none):\n");
     for (int i = 0; i < n; i++) {

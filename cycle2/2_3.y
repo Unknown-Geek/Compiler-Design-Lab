@@ -27,20 +27,8 @@ expr:
       expr '+' expr       { $$ = $1 + $3; }
     | expr '-' expr       { $$ = $1 - $3; }
     | expr '*' expr       { $$ = $1 * $3; }
-    | expr '/' expr {
-        if ($3 == 0) {
-            printf("Error: Division by zero\n");
-            exit(0);
-        }
-        $$ = $1 / $3;
-    }
-    | expr '%' expr {
-        if ($3 == 0) {
-            printf("Error: Modulo by zero\n");
-            exit(0);
-        }
-        $$ = $1 % $3;
-    }
+    | expr '/' expr       { $$ = $1 / $3; }
+    | expr '%' expr       { $$ = $1 % $3; }
     | '(' expr ')'        { $$ = $2; }
     | NUMBER              { $$ = $1; }
     ;

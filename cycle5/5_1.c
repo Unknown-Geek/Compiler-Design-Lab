@@ -33,26 +33,20 @@ void setVar(char name, int val, int constant) {
 }
 
 int getOperandValue(char token[]) {
-    if (isdigit(token[0]) || (token[0] == '-' && isdigit(token[1]))) {
+    if (isdigit(token[0]))
         return atoi(token);
-    }
     int idx = findVar(token[0]);
-    if (idx != -1 && isConst[idx]) {
+    if (idx != -1 && isConst[idx])
         return varVal[idx];
-    }
     return NOT_CONST;
 }
 
 int evaluate(int a, int b, char op) {
-    if (op == '+')
-        return a + b;
-    if (op == '-')
-        return a - b;
-    if (op == '*')
-        return a * b;
-    if (op == '/' && b != 0)
-        return a / b;
-    return NOT_CONST;
+    if (op == '+') return a + b;
+    if (op == '-') return a - b;
+    if (op == '*') return a * b;
+    if (op == '/') return a / b;
+    return 0;
 }
 
 int main() {
@@ -60,8 +54,7 @@ int main() {
     char stmt[50];
 
     printf("Enter number of statements: ");
-    if (scanf("%d", &n) != 1)
-        return 0;
+    scanf("%d", &n);
 
     printf("Enter statements (e.g. a=5, b=a+3, c=b*2):\n");
     for (int i = 0; i < n; i++) {
@@ -108,13 +101,8 @@ int main() {
 
             if (val1 != NOT_CONST && val2 != NOT_CONST) {
                 int res = evaluate(val1, val2, op);
-                if (res != NOT_CONST) {
-                    setVar(lhs, res, 1);
-                    printf("Result: %c = %d %c %d = %d\n", lhs, val1, op, val2, res);
-                } else {
-                    printf("Error: Division by zero\n");
-                    setVar(lhs, 0, 0);
-                }
+                setVar(lhs, res, 1);
+                printf("Result: %c = %d %c %d = %d\n", lhs, val1, op, val2, res);
             } else {
                 setVar(lhs, 0, 0);
                 printf("Result: %c = %s %c %s\n", lhs, op1, op, op2);
