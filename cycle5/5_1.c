@@ -62,10 +62,8 @@ int main() {
         scanf("%s", stmt);
 
         char lhs = stmt[0];
-        int eq = 1;
-        while (stmt[eq] != '=' && stmt[eq] != '\0') eq++;
 
-        int opPos = eq + 1;
+        int opPos = 2;
         while (stmt[opPos] != '\0' && stmt[opPos] != '+' && stmt[opPos] != '-' &&
                stmt[opPos] != '*' && stmt[opPos] != '/') {
             opPos++;
@@ -74,7 +72,7 @@ int main() {
         // Case 1: Simple assignment (e.g. a=5 or a=b)
         if (stmt[opPos] == '\0') {
             char op1[20];
-            strcpy(op1, stmt + eq + 1);
+            strcpy(op1, stmt + 2);
             int val = getOperandValue(op1);
 
             if (val != NOT_CONST) {
@@ -90,8 +88,8 @@ int main() {
             char op = stmt[opPos];
             char op1[20], op2[20];
 
-            int len1 = opPos - (eq + 1);
-            strncpy(op1, stmt + eq + 1, len1);
+            int len1 = opPos - 2;
+            strncpy(op1, stmt + 2, len1);
             op1[len1] = '\0';
 
             strcpy(op2, stmt + opPos + 1);
