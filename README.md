@@ -35,9 +35,9 @@ A curated, simplified collection of Compiler Design Lab programs implemented in 
 
 | # | Question Description | Program Files |
 |---|----------------------|---------------|
-| **4.1** | Write a program to find First and Follow of any given grammar. | [`cycle4/4_1.c`](cycle4/4_1.c) |
-| **4.2** | Design and implement a Recursive Descent Parser for a given grammar. | [`cycle4/4_2.c`](cycle4/4_2.c) |
-| **4.3** | Construct a Shift Reduce Parser for a given language. | [`cycle4/4_3.c`](cycle4/4_3.c) |
+| **4.1** | Write a program to find First and Follow sets of non-terminals for any given context-free grammar. | [`cycle4/4_1.c`](cycle4/4_1.c) |
+| **4.2** | Design and implement a Recursive Descent Parser for a given grammar ($E \to T E', E' \to + T E' \mid \epsilon, T \to F T', T' \to * F T' \mid \epsilon, F \to (E) \mid \text{id}$). | [`cycle4/4_2.c`](cycle4/4_2.c) |
+| **4.3** | Construct a Shift Reduce Parser for a given grammar ($E \to E+E \mid E*E \mid (E) \mid \text{id}$). | [`cycle4/4_3.c`](cycle4/4_3.c) |
 
 ### Cycle 5: Optimization & Code Generation
 
