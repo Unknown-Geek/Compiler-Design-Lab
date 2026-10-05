@@ -21,12 +21,14 @@ void setVal(char name, int val) {
         }
     }
     varName[varCount] = name;
-    varVal[varCount++] = val;
+    varVal[varCount] = val;
+    varCount++;
 }
 
 int getVal(char token[]) {
     if (isdigit(token[0]))
         return atoi(token);
+
     for (int i = 0; i < varCount; i++) {
         if (varName[i] == token[0])
             return varVal[i];
@@ -44,7 +46,7 @@ int evaluate(int a, int b, char op) {
 
 int main() {
     int n, opPos, val, len1, val1, val2, res;
-    char stmt[50], lhs, op;
+    char stmt[50], lhs, opr;
     char op1[20], op2[20];
 
     printf("Enter number of statements: ");
@@ -69,14 +71,14 @@ int main() {
             val = getVal(op1);
             setVal(lhs, val);
 
-            if (val != NOT_CONST)
-                printf("Result: %c = %d\n", lhs, val);
-            else
+            if (val == NOT_CONST)
                 printf("Result: %c = %s\n", lhs, op1);
+            else
+                printf("Result: %c = %d\n", lhs, val);
         }
         // Case 2: Binary operation (e.g. b=a+3)
         else {
-            op = stmt[opPos];
+            opr = stmt[opPos];
 
             len1 = opPos - 2;
             strncpy(op1, stmt + 2, len1);
@@ -88,12 +90,12 @@ int main() {
             val2 = getVal(op2);
 
             if (val1 != NOT_CONST && val2 != NOT_CONST) {
-                res = evaluate(val1, val2, op);
+                res = evaluate(val1, val2, opr);
                 setVal(lhs, res);
-                printf("Result: %c = %d %c %d = %d\n", lhs, val1, op, val2, res);
+                printf("Result: %c = %d %c %d = %d\n", lhs, val1, opr, val2, res);
             } else {
                 setVal(lhs, NOT_CONST);
-                printf("Result: %c = %s %c %s\n", lhs, op1, op, op2);
+                printf("Result: %c = %s %c %s\n", lhs, op1, opr, op2);
             }
         }
     }
