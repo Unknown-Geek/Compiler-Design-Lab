@@ -27,6 +27,7 @@ void displayStack() {
 int main() {
     char input[100];
     int ip = 0;
+    int reduced;
 
     printf("Enter input string: ");
     scanf("%s", input);
@@ -43,7 +44,7 @@ int main() {
         }
 
         // 2. Reduce handles
-        int reduced = 1;
+        reduced = 1;
         while (reduced) {
             reduced = 0;
 

@@ -27,6 +27,9 @@ int find_dfa_state(int set[]) {
 }
 
 int main() {
+    int count, dest, existing, empty;
+    int next_set[MAX];
+
     printf("Enter number of states: ");
     scanf("%d", &n);
 
@@ -46,18 +49,12 @@ int main() {
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            int count;
-
-            printf("Transitions from q%d on '%c' (count): ",
-                   i, sym[j]);
-
+            printf("Transitions from q%d on '%c' (count): ", i, sym[j]);
             scanf("%d", &count);
 
             if (count > 0) {
                 printf("  Enter destination states: ");
-
                 for (int c = 0; c < count; c++) {
-                    int dest;
                     scanf("%d", &dest);
                     nfa[i][j][dest] = 1;
                 }
@@ -72,18 +69,19 @@ int main() {
 
     for (int i = 0; i < dfa_count; i++) {
         for (int j = 0; j < m; j++) {
-            int next_set[MAX] = {0};
+            for (int s = 0; s < n; s++)
+                next_set[s] = 0;
 
             for (int s = 0; s < n; s++) {
                 if (dfa[i][s]) {
-                    for (int dest = 0; dest < n; dest++) {
-                        if (nfa[s][j][dest])
-                            next_set[dest] = 1;
+                    for (int dest_st = 0; dest_st < n; dest_st++) {
+                        if (nfa[s][j][dest_st])
+                            next_set[dest_st] = 1;
                     }
                 }
             }
 
-            int existing = find_dfa_state(next_set);
+            existing = find_dfa_state(next_set);
 
             if (existing != -1) {
                 dfa_trans[i][j] = existing;
@@ -108,8 +106,7 @@ int main() {
 
     for (int i = 0; i < dfa_count; i++) {
         printf("q%d\t{ ", i);
-
-        int empty = 1;
+        empty = 1;
 
         for (int s = 0; s < n; s++) {
             if (dfa[i][s]) {
@@ -131,4 +128,3 @@ int main() {
 
     return 0;
 }
-

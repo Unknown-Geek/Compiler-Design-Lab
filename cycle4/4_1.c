@@ -64,15 +64,16 @@ void follow(char c) {
 }
 
 int main() {
+    int found;
+
     printf("Enter the number of productions: ");
-    if (scanf("%d", &n) != 1)
-        return 0;
+    scanf("%d", &n);
 
     printf("Enter the set of productions (e.g. E->TX, X->+TX, X->e):\n");
     for (int i = 0; i < n; i++) {
         scanf("%s", prod[i]);
 
-        int found = 0;
+        found = 0;
         for (int j = 0; j < ntCount; j++) {
             if (nt[j] == prod[i][0]) {
                 found = 1;

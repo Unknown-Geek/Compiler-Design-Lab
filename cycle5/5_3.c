@@ -8,6 +8,7 @@ Implement the back end of the compiler which takes three-address code (TAC) and 
 int main() {
     char icode[20][30];
     int count = 0;
+    char result, op1, op, op2;
 
     printf("Enter set of Three-Address Code statements (type 'exit' to end):\n");
 
@@ -22,10 +23,10 @@ int main() {
     printf("\n--- Generated 8086 Assembly Code ---\n");
 
     for (int i = 0; i < count; i++) {
-        char result = icode[i][0];
-        char op1 = icode[i][2];
-        char op = icode[i][3];
-        char op2 = icode[i][4];
+        result = icode[i][0];
+        op1 = icode[i][2];
+        op = icode[i][3];
+        op2 = icode[i][4];
 
         printf("\n; Translation of: %s\n", icode[i]);
 

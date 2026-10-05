@@ -23,6 +23,8 @@ void findReachable(int s) {
 }
 
 void minimize() {
+    int change, p, q;
+
     // 1. Mark pairs where one is final and other is non-final
     for (int i = 0; i < n; i++) {
         for (int j = i + 1; j < n; j++) {
@@ -33,7 +35,6 @@ void minimize() {
     }
 
     // 2. Propagate marks: if on any symbol transitions go to a marked pair, mark (i, j)
-    int change;
     do {
         change = 0;
         for (int i = 0; i < n; i++) {
@@ -42,8 +43,8 @@ void minimize() {
                     continue;
 
                 for (int k = 0; k < m; k++) {
-                    int p = trans[i][k];
-                    int q = trans[j][k];
+                    p = trans[i][k];
+                    q = trans[j][k];
 
                     if (mark[p][q] || mark[q][p]) {
                         mark[i][j] = mark[j][i] = 1;
@@ -74,7 +75,7 @@ void makeGroups() {
 }
 
 int main() {
-    int f, x;
+    int f, x, rep, maxGroup;
 
     printf("Enter number of states: ");
     scanf("%d", &n);
@@ -109,7 +110,7 @@ int main() {
     makeGroups();
 
     // Find total distinct groups
-    int maxGroup = -1;
+    maxGroup = -1;
     for (int i = 0; i < n; i++)
         if (group[i] > maxGroup) maxGroup = group[i];
 
@@ -130,7 +131,7 @@ int main() {
 
     for (int i = 0; i <= maxGroup; i++) {
         // Find representative state for group i
-        int rep = -1;
+        rep = -1;
         for (int j = 0; j < n; j++) {
             if (group[j] == i) {
                 rep = j;
