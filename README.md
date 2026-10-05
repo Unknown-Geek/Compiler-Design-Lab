@@ -53,21 +53,21 @@ A curated, simplified collection of Compiler Design Lab programs implemented in 
 
 ### 1. Pure C Programs
 ```bash
-gcc filename.c -o output
-./output
+gcc filename.c
+./a.out
 ```
 
 ### 2. LEX Programs
 ```bash
 lex filename.l
-gcc lex.yy.c -o output
-./output
+gcc lex.yy.c
+./a.out
 ```
 
 ### 3. LEX & YACC Programs
 ```bash
 yacc -d filename.y
 lex filename.l
-gcc y.tab.c lex.yy.c -o output
-./output
+gcc y.tab.c lex.yy.c
+./a.out
 ```
