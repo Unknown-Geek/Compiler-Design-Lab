@@ -6,9 +6,6 @@
 %{
   /* C code: includes, prototypes, global variables */
   #include <stdio.h>
-  #include <stdlib.h>
-  int yylex(void);
-  void yyerror(char *s);
 %}
 
 /* Declarations: tokens, precedence, types */
