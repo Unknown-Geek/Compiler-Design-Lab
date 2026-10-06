@@ -18,11 +18,14 @@ void genTAC(char op) {
             op1 = inp[i - 1]; // Left operand
             op2 = inp[i + 1]; // Right operand
 
-            printf("%c\t%c\t%c\t%c\t\t%c = %c %c %c\n", op, reg, op1, op2, reg, op1, op, op2);
-
-            temp[j - 1] = reg; // Replace left operand in temp with register
-            i += 2;            // Skip operator and right operand
-            reg--;             // Next register (e.g. Z -> Y)
+            if (op == '=') {
+                printf("%c\t%c\t%c\t-\t\t%c = %c\n", op, op1, op2, op1, op2);
+            } else {
+                printf("%c\t%c\t%c\t%c\t\t%c = %c %c %c\n", op, reg, op1, op2, reg, op1, op, op2);
+                temp[j - 1] = reg; // Replace left operand in temp with register
+                reg--;             // Next register (e.g. Z -> Y)
+            }
+            i += 2;                // Skip operator and right operand
         } 
         //Normal character
         else {
