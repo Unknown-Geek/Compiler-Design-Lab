@@ -4,11 +4,6 @@ Generate a YACC specification to recognize a valid identifier which starts with 
 
 %{
 #include <stdio.h>
-#include <stdlib.h>
-
-int yylex(void);
-void yyerror(char s[10]);
-int valid = 1;
 %}
 
 %token ID
@@ -17,16 +12,14 @@ int valid = 1;
 
 input:
     ID '\n' {
-        if (valid)
-            printf("Valid Identifier\n");
+        printf("Valid Identifier\n");
         return 0;
     }
     ;
 
 %%
 
-void yyerror(char s[10]) {
-    valid = 0;
+void yyerror(char *s) {
     printf("Invalid Identifier\n");
 }
 

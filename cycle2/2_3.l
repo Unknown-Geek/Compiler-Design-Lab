@@ -5,6 +5,7 @@ Implementation of Calculator using LEX and YACC (Lexer).
 %{
 #include "y.tab.h"
 #include <stdlib.h>
+extern int yylval;
 %}
 
 %%

@@ -4,11 +4,6 @@ Generate a YACC specification to recognize a valid arithmetic expression that us
 
 %{
 #include <stdio.h>
-#include <stdlib.h>
-
-int yylex(void);
-void yyerror(char s[10]);
-int valid = 1;
 %}
 
 %token ID NUM
@@ -20,8 +15,7 @@ int valid = 1;
 
 input:
     expr '\n' {
-        if (valid)
-            printf("Valid Expression\n");
+        printf("Valid Expression\n");
         return 0;
     }
     ;
@@ -39,8 +33,7 @@ expr:
 
 %%
 
-void yyerror(char s[10]) {
-    valid = 0;
+void yyerror(char *s) {
     printf("Invalid Expression\n");
 }
 
