@@ -38,8 +38,6 @@ tar -czf "$ARCHIVE" \
 
 echo
 echo "Location: $TARGET_CONFIG"
-echo "Location: $TARGET_LOCAL"
-echo "Archive:  $ARCHIVE"
 echo
 
 history -c
