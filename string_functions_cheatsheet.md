@@ -18,6 +18,11 @@ A complete, exam-friendly reference for all string and character manipulation fu
 | **`isalpha`** | `<ctype.h>` | `isalpha(ch)` | Non-zero (true) / `0` (false) | Check if char is `'a'`–`'z'` or `'A'`–`'Z'` |
 | **`isalnum`** | `<ctype.h>` | `isalnum(ch)` | Non-zero (true) / `0` (false) | Check if char is letter or digit |
 | **`isupper`** | `<ctype.h>` | `isupper(ch)` | Non-zero (true) / `0` (false) | Distinguish Non-Terminals (`A`-`Z`) from Terminals |
+| **`islower`** | `<ctype.h>` | `islower(ch)` | Non-zero (true) / `0` (false) | Check if char is lowercase |
+| **`toupper`** | `<ctype.h>` | `toupper(ch)` | Converted character or unchanged `ch` | Convert a character to uppercase |
+| **`tolower`** | `<ctype.h>` | `tolower(ch)` | Converted character or unchanged `ch` | Convert a character to lowercase |
+| **`isspace`** | `<ctype.h>` | `isspace(ch)` | Non-zero (true) / `0` (false) | Ignore spaces, tabs, and newlines |
+| **`isblank`** | `<ctype.h>` | `isblank(ch)` | Non-zero (true) / `0` (false) | Check spaces and tabs |
 | **`atoi`** | `<stdlib.h>` | `atoi(str)` | `int` value | Convert number string `"125"` $\to$ `125` |
 
 ---
@@ -86,9 +91,21 @@ int len = strlen("hello"); // len = 5
 
 ---
 
-## 3. `<ctype.h>` Character Classification Functions
+## 3. `<ctype.h>` Character Conversion and Classification Functions
 
-All `<ctype.h>` functions take an `int` (or `char`) and return non-zero (true) or `0` (false).
+Include the header before using these functions:
+
+```c
+#include <ctype.h>
+```
+
+Classification functions return non-zero (true) or `0` (false). Conversion functions return the converted character, or the original character when no conversion is needed.
+
+> [!IMPORTANT]
+> Pass either `EOF` or a value representable as `unsigned char` to `<ctype.h>` functions. For a possibly signed `char`, use:
+> ```c
+> isalpha((unsigned char)ch)
+> ```
 
 ### 1. `isdigit(ch)`
 Checks if a character is a decimal digit (`'0'` through `'9'`).
@@ -122,6 +139,44 @@ if (isupper(c)) {
     // Non-Terminal (e.g. 'E', 'T', 'F') -> Find First & Follow
 } else {
     // Terminal (e.g. '+', '*', 'i') -> Directly part of First set
+}
+```
+
+### 5. `islower(ch)`
+Checks if a character is lowercase (`'a'` through `'z'`).
+```c
+if (islower((unsigned char)ch)) {
+    printf("Lowercase letter\n");
+}
+```
+
+### 6. `toupper(ch)` and `tolower(ch)`
+Convert one character without changing the original string automatically.
+```c
+char upper = (char)toupper((unsigned char)'b'); // 'B'
+char lower = (char)tolower((unsigned char)'G'); // 'g'
+```
+
+Convert an entire string by processing each character:
+```c
+for (int i = 0; inp[i] != '\0'; i++) {
+    inp[i] = (char)tolower((unsigned char)inp[i]);
+}
+```
+
+### 7. `isspace(ch)`
+Checks for whitespace characters such as space, tab, newline, carriage return, and form feed.
+```c
+if (isspace((unsigned char)ch)) {
+    // Ignore whitespace while scanning input
+}
+```
+
+### 8. `isblank(ch)`
+Checks only blank spacing characters: space and horizontal tab.
+```c
+if (isblank((unsigned char)ch)) {
+    // Space or tab
 }
 ```
 
