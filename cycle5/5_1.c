@@ -12,6 +12,8 @@ Write a program to perform constant propagation.
 char varName[20];
 int varVal[20];
 int varCount = 0;
+char stmt[25][50];
+int stmtCount = 0;
 
 void setVal(char name, int val) {
     for (int i = 0; i < varCount; i++) {
@@ -50,29 +52,30 @@ int evaluate(int val1, char opr, int val2) {
 }
 
 int main() {
-    int n, opPos, len1, val1, val2, res;
-    char stmt[50], lhs, opr;
+    int opPos, len1, val1, val2, res;
+    char lhs, opr;
     char op1[20], op2[20];
 
-    printf("Enter number of statements: ");
-    scanf("%d", &n);
+    printf("Enter the statements (type exit when finished):\n");
+    while (stmtCount < 25) {
+        scanf("%49s", stmt[stmtCount]);
+        if (strcmp(stmt[stmtCount], "exit") == 0)
+            break;
+        stmtCount++;
+    }
 
-    printf("Enter statements (e.g. a=5, b=a+3, c=b*2):\n");
-    for (int i = 0; i < n; i++) {
-        printf("Statement %d: ", i + 1);
-        scanf("%s", stmt);
-
-        lhs = stmt[0];
+    for (int i = 0; i < stmtCount; i++) {
+        lhs = stmt[i][0];
 
         opPos = 2;
-        while (stmt[opPos] != '\0' && stmt[opPos] != '+' && stmt[opPos] != '-' &&
-               stmt[opPos] != '*' && stmt[opPos] != '/') {
+        while (stmt[i][opPos] != '\0' && stmt[i][opPos] != '+' && stmt[i][opPos] != '-' &&
+               stmt[i][opPos] != '*' && stmt[i][opPos] != '/') {
             opPos++;
         }
 
         // Case 1: Simple assignment (e.g. a=5 or a=b)
-        if (stmt[opPos] == '\0') {
-            strcpy(op1, stmt + 2);
+        if (stmt[i][opPos] == '\0') {
+            strcpy(op1, stmt[i] + 2);
             val1 = getVal(op1);
             setVal(lhs, val1);
 
@@ -85,14 +88,14 @@ int main() {
         else {
             //operand 1
             len1 = opPos - 2;
-            strncpy(op1, stmt + 2, len1);
+            strncpy(op1, stmt[i] + 2, len1);
             op1[len1] = '\0';
 
             //operator
-            opr = stmt[opPos];
+            opr = stmt[i][opPos];
 
             //operand 2
-            strcpy(op2, stmt + opPos + 1);
+            strcpy(op2, stmt[i] + opPos + 1);
 
             val1 = getVal(op1);
             val2 = getVal(op2);
