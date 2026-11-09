@@ -9,6 +9,7 @@ Implementation of Calculator using LEX and YACC (Parser).
 %token NUMBER
 %left '+' '-'
 %left '*' '/' '%'
+%right UMINUS
 
 %%
 
@@ -26,6 +27,7 @@ expr:
     | expr '/' expr       { $$ = $1 / $3; }
     | expr '%' expr       { $$ = $1 % $3; }
     | '(' expr ')'        { $$ = $2; }
+    | '-' expr %prec UMINUS { $$ = -$2; }
     | NUMBER              { $$ = $1; }
     ;
 
