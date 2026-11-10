@@ -5,6 +5,8 @@ Design and implement a Recursive Descent Parser for a given grammar.
 #include <stdio.h>
 #include <string.h>
 
+#define REMAINING (input[ip] == '\0' ? "$" : input + ip)
+
 char input[100];
 int ip = 0;
 
@@ -16,7 +18,7 @@ int F();
 
 // E -> T E'
 int E() {
-    printf("%-20s E -> T E'\n", input + ip);
+    printf("%-20s E -> T E'\n", REMAINING);
     if (T()) {
         if (E_prime())
             return 1;
@@ -27,7 +29,7 @@ int E() {
 // E' -> + T E' | e
 int E_prime() {
     if (input[ip] == '+') {
-        printf("%-20s E' -> + T E'\n", input + ip);
+        printf("%-20s E' -> + T E'\n", REMAINING);
         ip++;
         if (T()) {
             if (E_prime())
@@ -35,14 +37,14 @@ int E_prime() {
         }
         return 0;
     } else {
-        printf("%-20s E' -> e\n", input + ip);
+        printf("%-20s E' -> e\n", REMAINING);
         return 1; // epsilon
     }
 }
 
 // T -> F T'
 int T() {
-    printf("%-20s T -> F T'\n", input + ip);
+    printf("%-20s T -> F T'\n", REMAINING);
     if (F()) {
         if (T_prime())
             return 1;
@@ -53,7 +55,7 @@ int T() {
 // T' -> * F T' | e
 int T_prime() {
     if (input[ip] == '*') {
-        printf("%-20s T' -> * F T'\n", input + ip);
+        printf("%-20s T' -> * F T'\n", REMAINING);
         ip++;
         if (F()) {
             if (T_prime())
@@ -61,7 +63,7 @@ int T_prime() {
         }
         return 0;
     } else {
-        printf("%-20s T' -> e\n", input + ip);
+        printf("%-20s T' -> e\n", REMAINING);
         return 1; // epsilon
     }
 }
@@ -69,7 +71,7 @@ int T_prime() {
 // F -> ( E ) | i
 int F() {
     if (input[ip] == '(') {
-        printf("%-20s F -> ( E )\n", input + ip);
+        printf("%-20s F -> ( E )\n", REMAINING);
         ip++;
         if (E()) {
             if (input[ip] == ')') {
@@ -79,7 +81,7 @@ int F() {
         }
         return 0;
     } else if (input[ip] == 'i') {
-        printf("%-20s F -> i\n", input + ip);
+        printf("%-20s F -> i\n", REMAINING);
         ip++;
         return 1;
     }
