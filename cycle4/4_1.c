@@ -24,25 +24,25 @@ void addToResult(char c) {
 
 void findNullable() {
     int changed = 1;
+
     while (changed) {
         changed = 0;
-        for (int i = 0; i < n; i++) {
-            char A = prod[i][0];
-            if (nullable[A])
-                continue;
 
-            int all = 1;   // does every symbol on the right side vanish?
-            for (int j = 3; prod[i][j] != '\0'; j++) {
-                if (prod[i][j] == 'e')
-                    continue;
-                if (!isupper(prod[i][j]) || !nullable[prod[i][j]]) {
-                    all = 0;
-                    break;
+        for (int i = 0; i < n; i++) {
+            char lhs = prod[i][0];
+            int all = 1;
+
+            if (prod[i][3] != 'e') {
+                for (int j = 3; prod[i][j] != '\0'; j++) {
+                    if (!isupper(prod[i][j]) || !nullable[prod[i][j]]) {
+                        all = 0;
+                        break;
+                    }
                 }
             }
 
-            if (all) {
-                nullable[A] = 1;
+            if (all && !nullable[lhs]) {
+                nullable[lhs] = 1;
                 changed = 1;
             }
         }
