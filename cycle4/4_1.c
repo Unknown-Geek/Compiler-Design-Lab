@@ -53,8 +53,9 @@ void first(char c, int level) {
     if (level > n)
         return;
 
-    if (c == 'e')
+    if (c == 'e') {
         return;
+    }
 
     if (!isupper(c)) {
         addToResult(c);
@@ -65,7 +66,7 @@ void first(char c, int level) {
         if (prod[i][0] == c) {
             for (int j = 3; prod[i][j] != '\0'; j++) {
                 first(prod[i][j], level + 1);
-                if (!nullable[prod[i][j]])   // stop unless this symbol can vanish
+                if (!nullable[prod[i][j]])   // if this symbol can't vanish, then stop
                     break;
             }
         }
@@ -123,8 +124,9 @@ int main() {
     for (int i = 0; i < ntCount; i++) {
         m = 0;
         first(nt[i], 0);
-        if (nullable[nt[i]])
+        if(nullable[nt[i]])
             addToResult('e');
+
         printf("FIRST(%c)  : { ", nt[i]);
         for (int j = 0; j < m; j++)
             printf("%c ", result[j]);
